@@ -1,16 +1,27 @@
 import React from "react";
 import "../main.css";
+import Page from "./Page";
+import Axios from "axios";
 
-const HomeGuest = () => {
+function HomeGuest() {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      await Axios.post("http://localhost:8080/register", { username: "walaa", email: "walaa@test.com", password: "walaa1113456" });
+      console.log("added pass");
+    } catch (error) {
+      console.log("wrong");
+    }
+  }
   return (
-    <div className="container py-md-5">
+    <Page wide={true} title="Home">
       <div className="row align-items-center">
         <div className="col-lg-7 py-3 py-md-5">
           <h1 className="display-3">Remember Writing?</h1>
           <p className="lead text-muted">Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts that are reminiscent of the late 90&rsquo;s email forwards? We believe getting back to actually writing is the key to enjoying the internet again.</p>
         </div>
         <div className="col-lg-5 pl-lg-5 pb-3 py-lg-5">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="username-register" className="text-muted mb-1">
                 <small>Username</small>
@@ -35,7 +46,7 @@ const HomeGuest = () => {
           </form>
         </div>
       </div>
-    </div>
+    </Page>
   );
-};
+}
 export default HomeGuest;
