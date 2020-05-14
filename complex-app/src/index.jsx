@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import "./main.css";
@@ -7,15 +7,18 @@ import Header from "./components/Header";
 import HomeGuest from "./components/HomeGuest";
 import About from "./components/About";
 import Terms from "./components/Terms";
+import Home from "./components/Home";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function Main() {
+  const [LoggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem("complexappToken")));
+
   return (
     <BrowserRouter>
-      <Header />
+      <Header LoggedIn={LoggedIn} setLoggedIn={setLoggedIn} />
       <Switch>
         <Route path="/" exact>
-          <HomeGuest />
+          {LoggedIn ? <Home /> : <HomeGuest />}
         </Route>
         <Route path="/about-us">
           <About />
