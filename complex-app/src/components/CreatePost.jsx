@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Page from "./Page";
 import Axios from "axios";
+import { withRouter } from "react-router-dom";
 
-function CreatePost() {
+function CreatePost(props) {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await Axios.post("/create-post", { title, body, token: localStorage.getItem("complexappToken") });
+      const response = await Axios.post("/create-post", { title, body, token: localStorage.getItem("complexappToken") });
       console.log("your Post is OK");
+      props.history.push(`/post/${response.data}`);
     } catch (e) {
       console.log("post is wrong!!!!");
     }
@@ -39,4 +41,4 @@ function CreatePost() {
   );
 }
 
-export default CreatePost;
+export default withRouter(CreatePost);
