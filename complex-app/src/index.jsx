@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import "./main.css";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Axios from "axios";
+
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import HomeGuest from "./components/HomeGuest";
 import About from "./components/About";
 import Terms from "./components/Terms";
 import Home from "./components/Home";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import CreatePost from "./components/CreatePost";
+Axios.defaults.baseURL = "http://localhost:8080/";
 
 function Main() {
   const [LoggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem("complexappToken")));
@@ -25,6 +29,9 @@ function Main() {
         </Route>
         <Route path="/terms">
           <Terms />
+        </Route>
+        <Route path="/create-post">
+          <CreatePost />
         </Route>
       </Switch>
       <Footer />
