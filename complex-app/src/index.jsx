@@ -13,13 +13,20 @@ import Terms from "./components/Terms";
 import Home from "./components/Home";
 import CreatePost from "./components/CreatePost";
 import ViewSinglePost from "./components/ViewSinglePost";
+import FlashMessages from "./components/FlashMessages";
 Axios.defaults.baseURL = "http://localhost:8080/";
 
 function Main() {
   const [LoggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem("complexappToken")));
+  const [flashMessages, setFlashMessages] = useState([]);
+
+  const addFlashMessages = (msg) => {
+    setFlashMessages((prev) => prev.concat(msg));
+  };
 
   return (
     <BrowserRouter>
+      <FlashMessages messages={flashMessages} />
       <Header LoggedIn={LoggedIn} setLoggedIn={setLoggedIn} />
       <Switch>
         <Route path="/" exact>
@@ -35,7 +42,7 @@ function Main() {
           <Terms />
         </Route>
         <Route path="/create-post">
-          <CreatePost />
+          <CreatePost addFlashMessages={addFlashMessages} />
         </Route>
       </Switch>
       <Footer />

@@ -11,8 +11,10 @@ function CreatePost(props) {
     e.preventDefault();
     try {
       const response = await Axios.post("/create-post", { title, body, token: localStorage.getItem("complexappToken") });
+
       console.log("your Post is OK");
       props.history.push(`/post/${response.data}`);
+      props.addFlashMessages("Congrats, you successflly added a Post");
     } catch (e) {
       console.log("post is wrong!!!!");
     }
