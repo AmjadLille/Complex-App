@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Page from "./Page";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
+import MainContext from "../MainContext";
 
 function CreatePost(props) {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
+
+  const { addFlashMessages } = useContext(MainContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +17,7 @@ function CreatePost(props) {
 
       console.log("your Post is OK");
       props.history.push(`/post/${response.data}`);
-      props.addFlashMessages("Congrats, you successflly added a Post");
+      addFlashMessages("Congrats, you successflly added a Post");
     } catch (e) {
       console.log("post is wrong!!!!");
     }

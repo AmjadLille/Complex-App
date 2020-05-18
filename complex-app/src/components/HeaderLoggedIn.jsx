@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-
+import MainContext from "../MainContext";
 function HeaderLoggedIn(props) {
+  const { setLoggedIn } = useContext(MainContext);
   const handleLoggedIn = () => {
-    props.setLoggedIn(false);
+    setLoggedIn(false);
     localStorage.removeItem("complexappToken");
     localStorage.removeItem("complexappUsername");
     localStorage.removeItem("complexappAvatar");
